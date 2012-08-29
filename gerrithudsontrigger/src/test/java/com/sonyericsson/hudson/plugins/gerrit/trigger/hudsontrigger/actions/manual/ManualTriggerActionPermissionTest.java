@@ -1,5 +1,9 @@
 package com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.actions.manual;
 
+import hudson.model.Hudson;
+
+import org.jvnet.hudson.test.recipes.LocalData;
+
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.Page;
@@ -7,9 +11,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.PluginImpl;
-import hudson.model.Hudson;
-import org.jvnet.hudson.test.HudsonTestCase;
-import org.jvnet.hudson.test.recipes.LocalData;
+import com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritPluginTestCase;
 
 //CS IGNORE MagicNumber FOR NEXT 200 LINES. REASON: Test-data.
 
@@ -18,7 +20,7 @@ import org.jvnet.hudson.test.recipes.LocalData;
  *
  * @author Robert Sandell &lt;robert.sandell@sonyericsson.com&gt;
  */
-public class ManualTriggerActionPermissionTest extends HudsonTestCase {
+public class ManualTriggerActionPermissionTest extends GerritPluginTestCase {
     //TODO One test fails with a 404 on gerrit-trigger.js when executed from Parent Pom, but not from this module.
 
     /**

@@ -25,19 +25,18 @@
 
 package com.sonyericsson.hudson.plugins.gerrit.trigger.spec;
 
-import com.sonyericsson.hudson.plugins.gerrit.gerritevents.GerritEventListener;
-import com.sonyericsson.hudson.plugins.gerrit.gerritevents.GerritHandler;
-import com.sonyericsson.hudson.plugins.gerrit.trigger.PluginImpl;
-
-import hudson.model.Item;
+import static com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil.createGerritTriggeredJob;
 import hudson.model.FreeStyleProject;
-import org.jvnet.hudson.test.HudsonTestCase;
-import org.jvnet.hudson.test.recipes.LocalData;
-import org.powermock.reflect.Whitebox;
 
 import java.util.Collection;
 
-import static com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil.createGerritTriggeredJob;
+import org.jvnet.hudson.test.recipes.LocalData;
+import org.powermock.reflect.Whitebox;
+
+import com.sonyericsson.hudson.plugins.gerrit.gerritevents.GerritEventListener;
+import com.sonyericsson.hudson.plugins.gerrit.gerritevents.GerritHandler;
+import com.sonyericsson.hudson.plugins.gerrit.trigger.PluginImpl;
+import com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritPluginTestCase;
 
 /**
  * This tests different scenarios of adding listeners to the
@@ -46,7 +45,8 @@ import static com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil
  *
  * @author Robert Sandell &lt;robert.sandell@sonyericsson.com&gt;
  */
-public class DuplicateGerritListenersPreloadedProjectHudsonTestCase extends HudsonTestCase {
+public class DuplicateGerritListenersPreloadedProjectHudsonTestCase extends
+		GerritPluginTestCase {
 
     /**
      * Tests that the trigger is added as a listener during startup of the server.
@@ -87,7 +87,7 @@ public class DuplicateGerritListenersPreloadedProjectHudsonTestCase extends Huds
         Collection<GerritEventListener> gerritEventListeners =
                 Whitebox.getInternalState(handler, "gerritEventListeners");
         assertEquals(2, gerritEventListeners.size());
-        configRoundtrip((Item)p);
+        configRoundtrip(p);
         assertEquals(2, gerritEventListeners.size());
     }
 }

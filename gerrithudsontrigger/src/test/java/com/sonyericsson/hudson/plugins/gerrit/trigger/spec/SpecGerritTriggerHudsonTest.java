@@ -24,33 +24,36 @@
  */
 package com.sonyericsson.hudson.plugins.gerrit.trigger.spec;
 
+import hudson.model.Action;
+import hudson.model.FreeStyleBuild;
+import hudson.model.Queue.QueueDecisionHandler;
+import hudson.model.Queue.Task;
+import hudson.model.Result;
+import hudson.model.AbstractBuild;
+import hudson.model.Cause;
+import hudson.model.FreeStyleProject;
+import hudson.util.RunList;
+
+import java.io.File;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
+import org.apache.sshd.SshServer;
+import org.jvnet.hudson.test.TestExtension;
+import org.jvnet.hudson.test.SleepBuilder;
+import org.jvnet.hudson.test.recipes.LocalData;
+
 import com.sonyericsson.hudson.plugins.gerrit.gerritevents.dto.events.CommentAdded;
 import com.sonyericsson.hudson.plugins.gerrit.gerritevents.dto.events.ManualPatchsetCreated;
 import com.sonyericsson.hudson.plugins.gerrit.gerritevents.dto.events.PatchsetCreated;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.PluginImpl;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.config.Config;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritCause;
+import com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritPluginTestCase;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.mock.GerritEventLifeCycleAdaptor;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.mock.Setup;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.mock.SshdServerMock;
-import hudson.model.AbstractBuild;
-import hudson.model.Action;
-import hudson.model.Cause;
-import hudson.model.FreeStyleBuild;
-import hudson.model.FreeStyleProject;
-import hudson.model.Queue.QueueDecisionHandler;
-import hudson.model.Queue.Task;
-import hudson.model.Result;
-import hudson.util.RunList;
-import org.apache.sshd.SshServer;
-import org.jvnet.hudson.test.HudsonTestCase;
-import org.jvnet.hudson.test.SleepBuilder;
-import org.jvnet.hudson.test.TestExtension;
-import org.jvnet.hudson.test.recipes.LocalData;
-import java.io.File;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 //CS IGNORE MagicNumber FOR NEXT 400 LINES. REASON: Testdata.
 
@@ -59,7 +62,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author Robert Sandell &lt;robert.sandell@sonyericsson.com&gt;
  */
-public class SpecGerritTriggerHudsonTest extends HudsonTestCase {
+public class SpecGerritTriggerHudsonTest extends GerritPluginTestCase {
 
     //TODO Fix the SshdServerMock so that asserts can be done on approve commands.
 
@@ -387,5 +390,4 @@ public class SpecGerritTriggerHudsonTest extends HudsonTestCase {
             return false;
         }
     }
-
 }

@@ -25,25 +25,24 @@
 
 package com.sonyericsson.hudson.plugins.gerrit.trigger.spec;
 
+import static com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil.createGerritTriggeredJob;
+import static com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil.getFormWithAction;
+import hudson.model.FreeStyleProject;
+
+import java.io.File;
+import java.util.Collection;
+
+import org.jvnet.hudson.test.recipes.LocalData;
+import org.powermock.reflect.Whitebox;
+
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.sonyericsson.hudson.plugins.gerrit.gerritevents.GerritEventListener;
 import com.sonyericsson.hudson.plugins.gerrit.gerritevents.GerritHandler;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.PluginImpl;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.config.Config;
+import com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritPluginTestCase;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.mock.SshdServerMock;
-
-import hudson.model.Item;
-import hudson.model.FreeStyleProject;
-import org.jvnet.hudson.test.HudsonTestCase;
-import org.jvnet.hudson.test.recipes.LocalData;
-import org.powermock.reflect.Whitebox;
-
-import java.io.File;
-import java.util.Collection;
-
-import static com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil.createGerritTriggeredJob;
-import static com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil.getFormWithAction;
 
 //CS IGNORE MagicNumber FOR NEXT 200 LINES. REASON: Test data.
 
@@ -54,7 +53,8 @@ import static com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil
  *
  * @author Robert Sandell &lt;robert.sandell@sonyericsson.com&gt;
  */
-public class DuplicateGerritListenersHudsonTestCase extends HudsonTestCase {
+public class DuplicateGerritListenersHudsonTestCase extends
+		GerritPluginTestCase {
 
     private File keyFile;
 
@@ -86,7 +86,7 @@ public class DuplicateGerritListenersHudsonTestCase extends HudsonTestCase {
     @LocalData
     public void testNewProjectCreationWithReSave() throws Exception {
         FreeStyleProject p = createGerritTriggeredJob(this, "testJob2");
-        configRoundtrip((Item)p);
+        configRoundtrip(p);
         GerritHandler handler = Whitebox.getInternalState(PluginImpl.getInstance(), GerritHandler.class);
         Collection<GerritEventListener> gerritEventListeners =
                 Whitebox.getInternalState(handler, "gerritEventListeners");
@@ -138,6 +138,4 @@ public class DuplicateGerritListenersHudsonTestCase extends HudsonTestCase {
                 Whitebox.getInternalState(handler, "gerritEventListeners");
         assertEquals(1, gerritEventListeners.size());
     }
-
-
 }

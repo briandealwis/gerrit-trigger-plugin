@@ -23,20 +23,22 @@
  */
 package com.sonyericsson.hudson.plugins.gerrit.trigger.project;
 
+import hudson.model.FreeStyleProject;
+
+import java.util.Iterator;
+import java.util.List;
+
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritPluginTestCase;
 import com.sonyericsson.hudson.plugins.gerrit.trigger.mock.DuplicatesUtil;
-import hudson.model.FreeStyleProject;
-import org.jvnet.hudson.test.HudsonTestCase;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Tests for the project setup for a Gerrit triggered project.
  * @author Tomas Westling &lt;tomas.westling@sonymobile.com&gt;
  */
-public class GerritTriggerProjectHudsonTest extends HudsonTestCase {
+public class GerritTriggerProjectHudsonTest extends GerritPluginTestCase {
 
     /**
      * Tests that the dropdown list for comment added is populated with the correct values.
